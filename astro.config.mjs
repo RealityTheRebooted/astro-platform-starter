@@ -3,17 +3,20 @@ import netlify from '@astrojs/netlify';
 import react from '@astrojs/react';
 import tailwindcss from '@tailwindcss/vite';
 
-// https://astro.build/config
 export default defineConfig({
+    // 1. Astro-specific server config (for 'npm run dev')
     server: {
-        // This is the Astro-native way to allow hosts in 2026
-        allowedHosts: ['.netlify.app'] 
+        allowedHosts: ['devserver-preview--vinefall.netlify.app']
     },
     vite: {
         plugins: [tailwindcss()],
-        // Some setups may still require it specifically here
+        // 2. Vite-specific preview config (for 'npm run preview')
+        preview: {
+            allowedHosts: ['devserver-preview--vinefall.netlify.app']
+        },
+        // 3. Fallback for some internal Vite dev processes
         server: {
-            allowedHosts: ['.netlify.app']
+            allowedHosts: ['devserver-preview--vinefall.netlify.app']
         }
     },
     integrations: [react()],
