@@ -5,8 +5,16 @@ import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
 export default defineConfig({
+    server: {
+        // This is the Astro-native way to allow hosts in 2026
+        allowedHosts: ['.netlify.app'] 
+    },
     vite: {
-        plugins: [tailwindcss()]
+        plugins: [tailwindcss()],
+        // Some setups may still require it specifically here
+        server: {
+            allowedHosts: ['.netlify.app']
+        }
     },
     integrations: [react()],
     adapter: netlify({
